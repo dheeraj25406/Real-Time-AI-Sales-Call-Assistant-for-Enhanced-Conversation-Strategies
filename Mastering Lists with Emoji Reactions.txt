@@ -1,0 +1,187 @@
+Activity 1: Count the Total Number of Reactions
+
+total_reactions=0
+for reaction in reactions:
+    total_reactions+=len(reaction[2])
+
+print(f"Total number of reactions: {total_reactions}")
+
+Activity 2: Find the message that has received the highest number of reactions
+
+message_reaction_count = []
+
+for reaction in reactions:
+    message = reaction[1]
+    reaction_count = len(reaction[2])
+
+    found = False
+
+    for element in message_reaction_count:
+        if element[0] == message:
+            element[1] += reaction_count
+            found = True
+            break
+
+    if not found:
+        message_reaction_count.append([message, reaction_count])
+
+sorted(message_reaction_count, key=lambda e:e[1], reverse=True)[0]
+
+Activity 3: Find All Unique Reactions (Emojis)
+
+unique_emojis = []
+for reaction in reactions:
+    emoji_list=reaction[2]
+    for emoji in emoji_list:
+        if emoji not in unique_emojis:
+            unique_emojis.append(emoji)
+unique_emojis.sort()
+print(f"Uniqque reactions: {unique_emojis}")
+
+Activity 4: How many emojis have not been reacted to?
+
+not_reacted_count = 0
+
+for emoji_detail in emojis:
+    if emoji_detail[1] not in unique_emojis:
+        not_reacted_count += 1
+
+print(f"Number of emojis not reacted to: {not_reacted_count}")
+
+
+Activity 5: How many times 🎉(party popper) has been used?
+
+party_popper_count = 0
+
+for reaction in reactions:
+    party_popper_count += reaction[2].count('🎉')
+
+print(f"Number of times 🎉 has been used: {party_popper_count}")
+
+Activity 6: Identify messages that received no emoji reactions.
+
+messages_without_reactions = []
+
+for message_and_count in message_reaction_count:
+    message = message_and_count[0]
+    reaction_count = message_and_count[1]
+    if reaction_count == 0 and message not in messages_without_reactions:
+        messages_without_reactions.append(message)
+
+messages_without_reactions.sort()
+print(f"Messages without reactions: {messages_without_reactions}")
+
+Activity 7: How many reactions each person has made across all messages.
+
+reactions_per_person = []
+for reaction in reactions:
+    person_name = reaction[0]
+    number_of_reactions = len(reaction[2])
+
+    person_found = False
+
+    for person in reactions_per_person:
+        if person[0] == person_name:
+            person[1] += number_of_reactions
+            person_found = True
+            break
+
+    if not person_found:
+        reactions_per_person.append([person_name, number_of_reactions])
+
+reactions_per_person.sort(key=lambda e: (-e[1], e[0]))
+
+print(f"Reactions per person: {reactions_per_person}")
+
+Activity 8: Find out who has reacted the most times across all messages.
+
+
+most_reactions_person = reactions_per_person[0]
+
+print(f"Person who reacted the most: {most_reactions_person[0]}, {most_reactions_person[1]}")
+
+
+Activity 9: Find All Messages Reacted to by a Specific Person
+person_to_find = 'Sophia'
+
+messages_reacted_by_sophia = []
+person_to_find = "Sophia"
+
+for reaction in reactions:
+    person = reaction[0]
+    message = reaction[1]
+    if person == person_to_find and message not in messages_reacted_by_sophia:
+        messages_reacted_by_sophia.append(message)
+
+messages_reacted_by_sophia.sort()
+print(f"Messages reacted by {person_to_find}: {messages_reacted_by_sophia}")
+
+Activity 10: Identify the most frequently used emoji across all reactions.
+
+emoji_counts = []
+
+for emoji in unique_emojis:
+    emoji_count = 0
+    for reaction in reactions:
+        emoji_count += reaction[2].count(emoji)
+    emoji_counts.append([emoji, emoji_count])
+
+most_frequent_emoji = max(emoji_counts, key=lambda x: x[1])
+
+print(f"Most frequently used emoji: {most_frequent_emoji[0]}")
+
+Activity 11: Count the total number of different people who have made reactions.
+
+
+people = []
+
+for reaction in reactions:
+    if reaction[0] not in people:
+        people.append(reaction[0])
+
+print(f"Total number of different people who reacted: {len(people)}")
+
+Activity 12: Count How Many Messages Were Reacted to with a Specific Emoji
+
+message_reaction_list = []
+
+for reaction in reactions:
+    message = reaction[1]
+    emoji_list = reaction[2]
+
+    message_found = False
+
+    for element in message_reaction_list:
+        if element[0] == message:
+            for emoji in emoji_list:
+                if emoji not in element[1]:
+                    element[1].append(emoji)
+            message_found = True
+            break
+
+    if not message_found:
+        message_reaction_list.append([message, emoji_list])
+
+message_reaction_list
+
+messages_reacted_to_with_emoji = 0
+
+for message_and_reactions in message_reaction_list:
+    if '😂' in message_and_reactions[1]:
+        messages_reacted_to_with_emoji += 1
+
+print(f"Number of messages reacted to with the 😂 emoji: {messages_reacted_to_with_emoji}")
+
+Activity 13: Find and list all messages that have exactly one emoji reaction.
+
+messages_with_one_reaction = []
+for message_and_reactions in message_reaction_count:
+    message = message_and_reactions[0]
+    reaction_count = message_and_reactions[1]
+    if reaction_count == 1 and message not in messages_with_one_reaction:
+        messages_with_one_reaction.append(message)
+
+messages_with_one_reaction.sort()
+print(f"Messages with only one reaction: {messages_with_one_reaction}")
+
+
