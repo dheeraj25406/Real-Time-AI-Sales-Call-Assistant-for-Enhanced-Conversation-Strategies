@@ -1,0 +1,6 @@
+We have studied a theoretical aspect of Machine Learning, a case study about Machine Learning Model for customer churn prediction.
+
+Dataset:
+The dataset includes various features such as customer demographics, usage patterns, contract details, and customer service interactions.
+There is also a churn label indicating the customer churn.
+
